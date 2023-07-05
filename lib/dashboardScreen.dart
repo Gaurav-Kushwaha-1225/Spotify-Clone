@@ -33,33 +33,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
   double premiumTextSize = 13;
 
   // Internet Connection Checker :---
+  late ConnectivityResult result;
   late StreamSubscription subscription;
   var isDeviceConnected = false;
-  bool isAlertSet = false;
 
   @override
   void initState() {
-    getConnectivity();
     super.initState();
+    startStreaming();
   }
 
-  getConnectivity() => subscription = Connectivity()
-          .onConnectivityChanged
-          .listen((ConnectivityResult result) async {
-        isDeviceConnected = await InternetConnectionChecker().hasConnection;
-        if (!isDeviceConnected && isAlertSet==false) {
-          showDialogBox();
-          setState(() => isAlertSet = true);
-        }
-        else{
-          _loadData();
-        }
-      });
-  
-  @override
-  void dispose(){
-    subscription.cancel();
-    super.dispose();
+  checkInternet() async {
+    result = await Connectivity().checkConnectivity();
+    if(result != ConnectivityResult.none){
+      isDeviceConnected = true;
+      _loadData();
+    }else{
+      isDeviceConnected = false;
+      showDialogBox();
+    }
+    setState(() {});
+  }
+
+  startStreaming(){
+    subscription = Connectivity().onConnectivityChanged.listen((event) async{
+      checkInternet();
+    });
   }
 
   // recent Playlist Data :---
@@ -263,6 +262,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Internet error Dialog Box
   showDialogBox() => showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (BuildContext context) => AlertDialog(
       title: Text("No internet connection"),
@@ -271,15 +271,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ElevatedButton(
           onPressed: () async{
             Navigator.pop(context, 'Cancel');
-            setState(() => isAlertSet = false);
-            isDeviceConnected = await InternetConnectionChecker().hasConnection;
-            if(!isDeviceConnected){
-              showDialogBox();
-              setState(() => isAlertSet = true);
-            }
-            else{
-              _loadData();
-            }
+            checkInternet();
           }, 
           child: Text("Try Again"))
       ],));
