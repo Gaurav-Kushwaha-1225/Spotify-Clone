@@ -40,26 +40,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
+    checkInternet();
     startStreaming();
   }
 
   checkInternet() async {
     result = await Connectivity().checkConnectivity();
-    if(result != ConnectivityResult.none){
+    if (result != ConnectivityResult.none) {
       isDeviceConnected = true;
       _loadData();
-    }else{
+    } else {
       isDeviceConnected = false;
       showDialogBox();
     }
     setState(() {});
   }
 
-  startStreaming(){
-    subscription = Connectivity().onConnectivityChanged.listen((event) async{
+  startStreaming() {
+    subscription = Connectivity().onConnectivityChanged.listen((event) async {
       checkInternet();
     });
   }
+  // :---
 
   // recent Playlist Data :---
   var recentPlaylistData =
@@ -96,11 +98,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Image.network(image)),
           Expanded(
               child: Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: Text(name,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.bold,
+                    fontFamily: "SpotifyCircularBold",
                     color: Colors.white),
                 softWrap: false,
                 maxLines: 2,
@@ -158,25 +160,68 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),
               ),
-              isLoaded?GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 3.125),
+              isLoaded
+                  ? GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 3.125),
 
-                //physics: NeverScrollableScrollPhysics(),
-                primary: false,
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                //controller: ScrollController(keepScrollOffset: false),
-                shrinkWrap: true,
-                itemCount: recentPlaylistItems.length,
-                itemBuilder: (BuildContext context, index) {
-                  return recentPlaylistContainer(
-                      recentPlaylistItems[index]["name"],
-                      recentPlaylistItems[index]["image"]);
-                },
-              ): Container(),
+                      //physics: NeverScrollableScrollPhysics(),
+                      primary: false,
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      //controller: ScrollController(keepScrollOffset: false),
+                      shrinkWrap: true,
+                      itemCount: recentPlaylistItems.length,
+                      itemBuilder: (BuildContext context, index) {
+                        return recentPlaylistContainer(
+                            recentPlaylistItems[index]["name"],
+                            recentPlaylistItems[index]["image"]);
+                      },
+                    )
+                  : Container(),
+              const Padding(
+                  padding:
+                      EdgeInsets.only(top: 30, left: 15, right: 15, bottom: 15),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Text("Recently played",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                            color: Colors.white,
+                            fontFamily: "SpotifyCircularBold"),
+                        textAlign: TextAlign.left),
+                  )),
+              Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset("assets/images/arijit_singh.jpg",
+                                height: 120, width: 120),
+                          ),
+                          Container(
+                            width: 120,
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text("This is Arijit Singh",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: "SpotifyCircularBold",
+                                    color: Colors.white),
+                                    textAlign: TextAlign.left),
+                          )
+                        ],
+                      )
+                    ],
+                  ))
             ]),
       ),
       extendBody: true,
@@ -261,19 +306,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   // Internet error Dialog Box
-  showDialogBox() => showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (BuildContext context) => AlertDialog(
-      title: Text("No internet connection"),
-      content: Text("Turn on mobile data or connect to Wi-Fi."),
-      actions: <Widget>[
-        ElevatedButton(
-          onPressed: () async{
-            Navigator.pop(context, 'Cancel');
-            checkInternet();
-          }, 
-          child: Text("Try Again"))
-      ],));
-    // :---
+  showDialogBox() {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text(
+                "No internet connection",
+                style: TextStyle(
+                    fontFamily: "SpotifyCircularBold", color: Colors.white),
+              ),
+              content: const Text(
+                "Turn on mobile data or connect to Wi-Fi.",
+                style: TextStyle(
+                    fontFamily: "SpotifyCircularLight",
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25)),
+              backgroundColor: Palette.secondarySwatchColor,
+              actionsAlignment: MainAxisAlignment.center,
+              surfaceTintColor: Colors.red,
+              actions: <Widget>[
+                ElevatedButton(
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      checkInternet();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Palette.primaryColor,
+                        foregroundColor: Colors.white,
+                        elevation: 10,
+                        textStyle: const TextStyle(
+                            fontFamily: "SpotifyCircularBold",
+                            color: Colors.white,
+                            fontSize: 18),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        fixedSize: const Size(250, 50)),
+                    child: const Text("Try Again"))
+              ],
+            ));
+  }
+  // :---
 }
