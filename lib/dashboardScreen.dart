@@ -68,6 +68,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       FirebaseFirestore.instance.collection("recentPlaylistData");
   late List<Map<String, dynamic>> recentPlaylistItems;
 
+  var recentPlayedData =
+      FirebaseFirestore.instance.collection("recentlyPlayed");
+  late List<Map<String, dynamic>> recentPlayedItems;
+
   var artistAndPodcasters = FirebaseFirestore.instance.collection("artistsAndPodcasters");
   late List<Map<String, dynamic>> artistAndPodcastersItems;
 
@@ -77,11 +81,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<Map<String, dynamic>> recentPlaylistTempList = [];
     var data_recentPlaylist = await recentPlaylistData.get();
 
+    List<Map<String, dynamic>> recentPlayedTempList = [];
+    var data_recentPlayed = await recentPlayedData.get();
+
     List<Map<String, dynamic>> artistAndPodcastersTempList = [];
     var data_artistAndPodcasters = await artistAndPodcasters.get();
 
     data_recentPlaylist.docs.forEach((element) {
       recentPlaylistTempList.add(element.data());
+    });
+
+    data_recentPlayed.docs.forEach((element) {
+      recentPlayedTempList.add(element.data());
     });
 
     data_artistAndPodcasters.docs.forEach((element) {
@@ -90,6 +101,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     setState(() {
       recentPlaylistItems = recentPlaylistTempList;
+      recentPlayedItems = recentPlayedTempList;
       artistAndPodcastersItems = artistAndPodcastersTempList;
       isLoaded = true;
     });
@@ -125,13 +137,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget artistAndPodcastersColumn(name, image) {
+  Widget recentlyPlayed(name, image, border_radius) {
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(60),
+            borderRadius: BorderRadius.circular(double.parse(border_radius.toString())),
             child: Image.network(image, height: 120, width: 120),
           ),
           Container(
@@ -151,6 +165,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
+  Widget artistAndPodcastersColumn(name, image, border_radius) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(double.parse(border_radius.toString())),
+            child: Image.network(image, height: 120, width: 120),
+          ),
+          Container(
+            width: 120,
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(name,
+                style: const TextStyle(
+                    fontSize: 15,
+                    fontFamily: "SpotifyCircularBold",
+                    color: Colors.white),
+                textAlign: TextAlign.left,
+                softWrap: false,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   // :---
 
@@ -241,13 +285,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for(int i = 0; i<(isLoaded? artistAndPodcastersItems.length : 6);i++)
-                          (isLoaded? (artistAndPodcastersColumn(artistAndPodcastersItems[i]['name'], artistAndPodcastersItems[i]['image'])) : Container()),
+                        for(int i = 0; i<(isLoaded? recentPlayedItems.length : 6);i++)
+                          (isLoaded? (recentlyPlayed(recentPlayedItems[i]['name'], recentPlayedItems[i]['image'], recentPlayedItems[i]['border_radius'])) : Container()),
                       ],
                     ),
-                  ))
+                  )),
+              const Padding(
+                  padding:
+                      EdgeInsets.only(top: 30, left: 15, right: 15, bottom: 15),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Text("Artists and Podcasters",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                            color: Colors.white,
+                            fontFamily: "SpotifyCircularBold"),
+                        textAlign: TextAlign.left,
+                        maxLines: 2,),
+                  )),
+              Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for(int i = 0; i<(isLoaded? artistAndPodcastersItems.length : 6);i++)
+                          (isLoaded? (artistAndPodcastersColumn(artistAndPodcastersItems[i]['name'], artistAndPodcastersItems[i]['image'], artistAndPodcastersItems[i]['border_radius'])) : Container()),
+                      ],
+                    ),
+                  )),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 15, right: 15),
+                    child: SizedBox(height: 70, width: double.infinity))
             ]),
       ),
       extendBody: true,
