@@ -67,18 +67,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
   var recentPlaylistData =
       FirebaseFirestore.instance.collection("recentPlaylistData");
   late List<Map<String, dynamic>> recentPlaylistItems;
+
+  var artistAndPodcasters = FirebaseFirestore.instance.collection("artistsAndPodcasters");
+  late List<Map<String, dynamic>> artistAndPodcastersItems;
+
   bool isLoaded = false;
 
   _loadData() async {
     List<Map<String, dynamic>> recentPlaylistTempList = [];
     var data_recentPlaylist = await recentPlaylistData.get();
 
+    List<Map<String, dynamic>> artistAndPodcastersTempList = [];
+    var data_artistAndPodcasters = await artistAndPodcasters.get();
+
     data_recentPlaylist.docs.forEach((element) {
       recentPlaylistTempList.add(element.data());
     });
 
+    data_artistAndPodcasters.docs.forEach((element) {
+      artistAndPodcastersTempList.add(element.data());
+    });
+
     setState(() {
       recentPlaylistItems = recentPlaylistTempList;
+      artistAndPodcastersItems = artistAndPodcastersTempList;
       isLoaded = true;
     });
   }
@@ -112,6 +124,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
+  Widget artistAndPodcastersColumn(name, image) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(60),
+            child: Image.network(image, height: 120, width: 120),
+          ),
+          Container(
+            width: 120,
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(name,
+                style: const TextStyle(
+                    fontSize: 15,
+                    fontFamily: "SpotifyCircularBold",
+                    color: Colors.white),
+                textAlign: TextAlign.left,
+                softWrap: false,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis),
+          ),
+        ],
+      ),
+    );
+  }
+
   // :---
 
   @override
@@ -197,30 +237,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   )),
               Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset("assets/images/arijit_singh.jpg",
-                                height: 120, width: 120),
-                          ),
-                          Container(
-                            width: 120,
-                            padding: EdgeInsets.only(top: 10),
-                            child: Text("This is Arijit Singh",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontFamily: "SpotifyCircularBold",
-                                    color: Colors.white),
-                                    textAlign: TextAlign.left),
-                          )
-                        ],
-                      )
-                    ],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        for(int i = 0; i<(isLoaded? artistAndPodcastersItems.length : 6);i++)
+                          (isLoaded? (artistAndPodcastersColumn(artistAndPodcastersItems[i]['name'], artistAndPodcastersItems[i]['image'])) : Container()),
+                      ],
+                    ),
                   ))
             ]),
       ),
