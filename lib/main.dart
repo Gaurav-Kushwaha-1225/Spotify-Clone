@@ -2,9 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spotify/constants.dart';
-import 'package:spotify/dashboardScreen.dart';
-import 'package:spotify/presplashScreen.dart';
-import 'package:firebase_core/firebase_core.dart';
+
+import 'artistsScreen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +12,11 @@ void main() async{
     DeviceOrientation.portraitUp
   ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Palette.secondaryColor,
+      statusBarColor: Colors.transparent,//Palette.secondaryColor,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Palette.secondaryColor,
-      systemNavigationBarIconBrightness: Brightness.light));
+      systemNavigationBarColor: Colors.black,
+      systemNavigationBarIconBrightness: Brightness.light,
+      ));
   runApp(const MyApp());
 }
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Spotify',
       theme: ThemeData(primaryColor: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
-      home: const DashboardScreen(title: "DashboardScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
+      home: const artistsScreen(title: "Artists Screen")//PlayingScreen(title: "PlayingScreen")//DashboardScreen(title: "DashboardScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
     );
   }
 }

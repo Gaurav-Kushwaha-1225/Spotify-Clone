@@ -89,8 +89,13 @@ flutter:
     - family: SpotifyCircularLight
       fonts:
         - asset: assets/fonts/CircularStd-Light.otf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+    - family: SpotifyCircularMedium
+      fonts:
+        - asset: assets/fonts/CircularStd-Medium.otf
+    - family: SpotifyCircularBook
+      fonts:
+        - asset: assets/fonts/CircularStd-Book.otf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

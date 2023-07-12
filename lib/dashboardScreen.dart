@@ -1,13 +1,12 @@
 //import 'dart:js_util';
 
-import 'dart:async';
+// ignore_for_file: file_names
 
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:spotify/constants.dart';
-import 'package:image_picker/image_picker.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key, required this.title});
