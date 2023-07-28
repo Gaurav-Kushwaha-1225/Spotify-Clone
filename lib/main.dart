@@ -2,8 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spotify/constants.dart';
-
-import 'artistsScreen.dart';
+import 'dashboardScreen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +11,7 @@ void main() async{
     DeviceOrientation.portraitUp
   ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,//Palette.secondaryColor,
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
       systemNavigationBarColor: Colors.black,
       systemNavigationBarIconBrightness: Brightness.light,
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Spotify',
       theme: ThemeData(primaryColor: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
-      home: const artistsScreen(title: "Artists Screen")//PlayingScreen(title: "PlayingScreen")//DashboardScreen(title: "DashboardScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
+      home: const DashboardScreen(title: "DashboardScreen")//PlayingScreen(title: "PlayingScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
     );
   }
 }

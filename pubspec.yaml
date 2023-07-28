@@ -40,7 +40,6 @@ dependencies:
   cloud_firestore: ^4.8.2
   firebase_storage: ^11.2.4
   fluttertoast: ^8.2.2
-  image_picker: ^1.0.0
   internet_connection_checker: ^0.0.1+4
   connectivity_plus: ^2.3.5
 
@@ -70,6 +69,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/songs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
