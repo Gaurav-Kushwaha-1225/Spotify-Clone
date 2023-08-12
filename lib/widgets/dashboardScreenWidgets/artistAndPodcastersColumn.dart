@@ -1,14 +1,14 @@
 // ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import '../artistsScreen.dart';
+import '../../artistsScreen.dart';
 
-class recentlyPlayed extends StatelessWidget{
+class artistAndPodcastersColumn extends StatelessWidget{
   final String image;
   final String name;
-  final double border_radius;
+  final int border_radius;
   final List<Map<String, dynamic>> artistAndPodcastersItems;
-  const recentlyPlayed({Key? key, required this.name, required this.image, required this.border_radius, required this.artistAndPodcastersItems})
+  const artistAndPodcastersColumn({Key? key, required this.name, required this.image, required this.border_radius, required this.artistAndPodcastersItems})
       : super(key: key);
 
   @override

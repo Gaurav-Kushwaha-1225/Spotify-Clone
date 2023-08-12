@@ -16,23 +16,23 @@ class Songs {
     'Arijit Singh': [
       {
         'name': 'Agar Tum Saath Ho (From Tamasha)',
-        'image': 'assets/songs/arijit singh/images/tamasha.jpg'
+        'image': 'assets/songs/arijitSingh/images/tamasha.jpg'
       },
       {
         'name': 'Phir Aur Kya Chahiye (From Zara Hatke Zara Bachke)',
-        'image': 'assets/songs/arijit singh/images/zara_hatke_zara bachke.jpg'
+        'image': 'assets/songs/arijitSingh/images/zara_hatke_zara bachke.jpg'
       },
       {
         'name': 'Kesariya',
-        'image': 'assets/songs/arijit singh/images/brahmashtra.jpg'
+        'image': 'assets/songs/arijitSingh/images/brahmashtra.jpg'
       },
       {
         'name': 'Humdard',
-        'image': 'assets/songs/arijit singh/images/ek_villan.jpg'
+        'image': 'assets/songs/arijitSingh/images/ek_villan.jpg'
       },
       {
         'name': 'Tujhe Kitna Chahne Lage (From Kabir Singh)',
-        'image': 'assets/songs/arijit singh/images/kabir_singh.jpg'
+        'image': 'assets/songs/arijitSingh/images/kabir_singh.jpg'
       },
     ],
   };

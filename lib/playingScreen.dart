@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class PlayingScreen extends StatefulWidget {
@@ -18,7 +20,7 @@ class _PlayingScreenState extends State<PlayingScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter)
       ),
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: Colors.transparent
       )
     );

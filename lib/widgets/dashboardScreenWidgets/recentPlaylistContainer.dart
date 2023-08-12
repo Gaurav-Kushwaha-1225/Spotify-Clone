@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, camel_case_types
 
 import 'package:flutter/material.dart';
-import '../constants.dart';
+import '../../constants.dart';
 
 class recentPlaylistContainer extends StatelessWidget{
   final String image;
@@ -34,7 +34,8 @@ class recentPlaylistContainer extends StatelessWidget{
                 softWrap: false,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis),
-          ))
+          )),
+          const SizedBox(width: 10)
         ],
       ),
     );
