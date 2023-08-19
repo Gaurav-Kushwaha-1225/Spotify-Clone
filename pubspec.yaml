@@ -42,6 +42,7 @@ dependencies:
   fluttertoast: ^8.2.2
   internet_connection_checker: ^0.0.1+4
   connectivity_plus: ^2.3.5
+  marquee: ^2.2.3
 
 dev_dependencies:
   flutter_test:

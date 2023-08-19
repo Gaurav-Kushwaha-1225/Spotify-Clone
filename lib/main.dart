@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spotify/constants.dart';
+import 'package:spotify/musicPlayer.dart';
 import 'package:spotify/searchScreen.dart';
 import 'dashboardScreen.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Spotify',
       theme: ThemeData(primaryColor: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
-      home: const DashboardScreen(title: "DashboardScreen")//PlayingScreen(title: "PlayingScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
+      home: const musicPlayer()//DashboardScreen(title: "DashboardScreen")//PlayingScreen(title: "PlayingScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
     );
   }
 }
