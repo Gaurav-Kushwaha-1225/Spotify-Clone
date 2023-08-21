@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Spotify',
       theme: ThemeData(primaryColor: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
-      home: const musicPlayer()//DashboardScreen(title: "DashboardScreen")//PlayingScreen(title: "PlayingScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
+      home: const DashboardScreen(title: "DashboardScreen")//PlayingScreen(title: "PlayingScreen"), //PresplashScreen(title: 'Spotify - Presplash Screen'),
     );
   }
 }

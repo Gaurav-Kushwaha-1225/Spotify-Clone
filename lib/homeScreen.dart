@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
+import 'package:spotify/musicPlayer.dart';
 import 'package:spotify/widgets/dashboardScreenWidgets/artistAndPodcastersColumn.dart';
 import 'package:spotify/widgets/dashboardScreenWidgets/recentPlaylistContainer.dart';
 import 'package:spotify/widgets/dashboardScreenWidgets/recentlyPlayed.dart';
@@ -85,7 +86,8 @@ class _homeScreenState extends State<homeScreen> {
                   itemBuilder: (BuildContext context, index) {
                     return recentPlaylistContainer(
                         name: widget.recentPlaylistItems[index]["name"],
-                        image: widget.recentPlaylistItems[index]["image"]);
+                        image: widget.recentPlaylistItems[index]["image"],
+                        artistAndPodcastersItems: widget.artistAndPodcastersItems);
                   },
                 ),
                 const Padding(

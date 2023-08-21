@@ -35,5 +35,27 @@ class Songs {
         'image': 'assets/songs/arijitSingh/images/kabir_singh.jpg'
       },
     ],
+    'Iqlipse Nova': [
+      {
+        'name': 'Mera Safar',
+        'image': 'assets/songs/iqlipseNova/images/mera_safar.jpg'
+      },
+      {
+        'name': 'Khwab',
+        'image': 'assets/songs/iqlipseNova/images/khwab.jpg'
+      },
+      {
+        'name': 'Middle Class',
+        'image': 'assets/songs/iqlipseNova/images/middle_class.jpg'
+      },
+      {
+        'name': 'Aarzoo',
+        'image': 'assets/songs/iqlipseNova/images/aarzoo.jpg'
+      },
+      {
+        'name': 'Khwab - Reprise',
+        'image': 'assets/songs/iqlipseNova/images/khwab_reprise.jpg'
+      },
+    ],
   };
 }

@@ -1,10 +1,15 @@
 // ignore_for_file: camel_case_types, file_names
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 
 class musicPlayer extends StatefulWidget {
-  const musicPlayer({Key? key}) : super(key: key);
+  final String name;
+  final String image;
+  final String song;
+  const musicPlayer({Key? key, required this.name, required this.image, required this.song})
+      : super(key: key);
 
   @override
   State<musicPlayer> createState() => _musicPlayerState();
@@ -13,14 +18,63 @@ class musicPlayer extends StatefulWidget {
 class _musicPlayerState extends State<musicPlayer> {
   double currentPlayTime = 0;
 
+  bool isPlaying = false;
+  late final AudioPlayer player;
+  late final AssetSource path;
+
+  Duration _duration = const Duration();
+  Duration _position = const Duration();
+
+  @override
+  void initState() {
+    initPlayer();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
+
+  Future initPlayer() async {
+    player = AudioPlayer();
+    path = AssetSource("songs/iqlipseNova/songs/meraSafar.mp3");
+
+    player.onDurationChanged.listen((Duration d) {
+      setState(() => _duration = d);
+    });
+
+    player.onPositionChanged.listen((Duration p) {
+      setState(() => _position = p);
+    });
+
+    player.onPlayerComplete.listen((_) {
+      setState(() => _position = _duration);
+    });
+  }
+
+  void playPause() async {
+    if (isPlaying) {
+      player.pause();
+      isPlaying = false;
+    } else {
+      player.play(path);
+      isPlaying = true;
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
     return Scaffold(
       body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [Colors.lightBlue, Colors.black],
+                  colors: [
+                Colors.deepPurple.shade800.withOpacity(0.8),
+                Colors.black87.withOpacity(0.8)
+              ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   tileMode: TileMode.mirror)),
@@ -35,7 +89,10 @@ class _musicPlayerState extends State<musicPlayer> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
                         icon: const Icon(
                           Icons.arrow_back_ios,
                           color: Colors.white,
@@ -43,15 +100,15 @@ class _musicPlayerState extends State<musicPlayer> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Text("PLAYING FROM ARTIST",
+                      children: [
+                        const Text("PLAYING FROM ARTIST",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: "SpotifyCircularBook",
                                 fontWeight: FontWeight.w600,
                                 fontSize: 12)),
-                        Text("Arijit Singh",
-                            style: TextStyle(
+                        Text(widget.name,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: "SpotifyCircularBook",
                                 fontWeight: FontWeight.w600,
@@ -72,21 +129,21 @@ class _musicPlayerState extends State<musicPlayer> {
                       top: 40, left: 35, right: 35, bottom: 35),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: Image.asset("assets/images/trs.jpg"))),
+                      child: Image.asset(widget.image))),
               Padding(
                 padding: const EdgeInsets.only(left: 35, right: 35),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 70,
                   height: 25,
                   child: Marquee(
-                    text: "Agar Tum Saath Ho (From Tamasha)",
+                    text: widget.song,
                     style: const TextStyle(
                         color: Colors.white,
                         fontFamily: "SpotifyCircularBold",
                         fontSize: 20),
                     scrollAxis: Axis.horizontal,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    blankSpace: 120,
+                    blankSpace: 300,
                     velocity: 40.0,
                     startPadding: 5.0,
                     pauseAfterRound: const Duration(seconds: 2),
@@ -100,7 +157,7 @@ class _musicPlayerState extends State<musicPlayer> {
                   width: MediaQuery.of(context).size.width - 70,
                   height: 25,
                   child: Marquee(
-                    text: "Alka Yagnik, Arijit Singh",
+                    text: widget.name,
                     style: const TextStyle(
                         color: Colors.white,
                         fontFamily: "SpotifyCircularBook",
@@ -108,7 +165,7 @@ class _musicPlayerState extends State<musicPlayer> {
                         fontSize: 17),
                     scrollAxis: Axis.horizontal,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    blankSpace: 150,
+                    blankSpace: 300,
                     velocity: 30.0,
                     startPadding: 5.0,
                     pauseAfterRound: const Duration(seconds: 2),
@@ -127,12 +184,13 @@ class _musicPlayerState extends State<musicPlayer> {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width - 20,
                         child: Slider(
-                          value: currentPlayTime,
+                          value: _position.inSeconds.toDouble(),
                           min: 0,
-                          max: 341,
+                          max: _duration.inSeconds.toDouble(),
                           divisions: 341,
-                          onChanged: (value) {
-                            setState((() => currentPlayTime = value));
+                          onChanged: (value) async {
+                            await player.seek(Duration(seconds: value.toInt()));
+                            setState(() {});
                           },
                         ),
                       ))),
@@ -142,14 +200,16 @@ class _musicPlayerState extends State<musicPlayer> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("${currentPlayTime~/60}:${currentPlayTime.toInt()%60}",
+                    Text(
+                        "${(_position.inMinutes % 60).toString().padLeft(2, '0')}:${(_position.inSeconds % 60).toString().padLeft(2, '0')}",
                         style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "SpotifyCircularBook",
                             fontWeight: FontWeight.w600,
                             fontSize: 15)),
-                    const Text("5:41",
-                        style: TextStyle(
+                    Text(
+                        "${(_position.inMinutes % 60).toString().padLeft(2, '0')}:${(_position.inSeconds % 60).toString().padLeft(2, '0')}",
+                        style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "SpotifyCircularBook",
                             fontWeight: FontWeight.w600,
@@ -158,7 +218,7 @@ class _musicPlayerState extends State<musicPlayer> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 0, right: 0, top: 15),
+                padding: const EdgeInsets.only(left: 0, right: 0, top: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -177,13 +237,15 @@ class _musicPlayerState extends State<musicPlayer> {
                           size: 40,
                         )),
                     Padding(
-                      padding: const EdgeInsets.only(right: 60, bottom: 60),
+                      padding: const EdgeInsets.only(right: 50, bottom: 50),
                       child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.play_circle_fill_sharp,
+                          onPressed: playPause,
+                          icon: Icon(
+                            isPlaying
+                                ? Icons.pause_circle_filled_sharp
+                                : Icons.play_circle_fill_sharp,
                             color: Colors.white,
-                            size: 100,
+                            size: 90,
                           )),
                     ),
                     IconButton(
@@ -203,38 +265,41 @@ class _musicPlayerState extends State<musicPlayer> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 40,
-                child: Stack(
-                  children: [
-                    Positioned(
-                        left: 20,
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.devices,
-                              color: Colors.white,
-                              size: 30,
-                            ))),
-                    Positioned(
-                        right: 10,
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.horizontal_split_sharp,
-                              color: Colors.white,
-                              size: 30,
-                            ))),
-                    Positioned(
-                        right: 75,
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.share_sharp,
-                              color: Colors.white,
-                              size: 30,
-                            ))),
-                  ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: SizedBox(
+                  height: 40,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                          left: 20,
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.devices,
+                                color: Colors.white,
+                                size: 30,
+                              ))),
+                      Positioned(
+                          right: 10,
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.horizontal_split_sharp,
+                                color: Colors.white,
+                                size: 30,
+                              ))),
+                      Positioned(
+                          right: 75,
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.share_sharp,
+                                color: Colors.white,
+                                size: 30,
+                              ))),
+                    ],
+                  ),
                 ),
               )
             ],

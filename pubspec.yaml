@@ -43,6 +43,7 @@ dependencies:
   internet_connection_checker: ^0.0.1+4
   connectivity_plus: ^2.3.5
   marquee: ^2.2.3
+  audioplayers: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,8 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/songs/arijitSingh/images/
+    - assets/songs/iqlipseNova/songs/
+    - assets/songs/iqlipseNova/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

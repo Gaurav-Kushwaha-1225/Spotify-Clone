@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, file_names
 
 import 'package:flutter/material.dart';
+import 'package:spotify/musicPlayer.dart';
 
 import '../../constants.dart';
 
@@ -21,56 +22,72 @@ class _musicContentState extends State<musicContent> {
       children: [
         ListView.builder(
             itemBuilder: (context, index) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "${index + 1}",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: "SpotifyCircularBook",
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15),
-                  ),
-                  Image.asset(Songs.songDetails[widget.name]![index]['image']!,
-                      height: 50, width: 50),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.54,
-                          child: Text(
-                              Songs.songDetails[widget.name]![index]['name']!,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: "SpotifyCircularBook",
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 17),
-                              textAlign: TextAlign.left,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis),
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => musicPlayer(
+                              name: widget.name,
+                              image: Songs.songDetails[widget.name]![index]
+                                  ['image']!,
+                                  song: Songs.songDetails[widget.name]![index]['name']!)));
+                },
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${index + 1}",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontFamily: "SpotifyCircularBook",
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15),
+                    ),
+                    Image.asset(
+                        Songs.songDetails[widget.name]![index]['image']!,
+                        height: 50,
+                        width: 50),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.54,
+                            child: Text(
+                                Songs.songDetails[widget.name]![index]['name']!,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "SpotifyCircularBook",
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 17),
+                                textAlign: TextAlign.left,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                          const Text(
+                            "284,854,600",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: "SpotifyCircularBook",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15),
+                          )
+                        ]),
+                    const IconButton(
+                        icon: Icon(
+                          Icons.more_vert,
+                          size: 25,
+                          color: Colors.grey,
                         ),
-                        const Text(
-                          "284,854,600",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: "SpotifyCircularBook",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15),
-                        )
-                      ]),
-                  const IconButton(
-                      icon: Icon(
-                        Icons.more_vert,
-                        size: 25,
-                        color: Colors.grey,
-                      ),
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onPressed: h)
-                ],
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onPressed: h)
+                  ],
+                ),
               );
             },
             itemCount: 5,
