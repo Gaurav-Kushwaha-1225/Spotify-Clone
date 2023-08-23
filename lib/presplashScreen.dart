@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'constants.dart';
+import 'dashboardScreen.dart';
 
 class PresplashScreen extends StatefulWidget {
   const PresplashScreen({super.key, required this.title});
@@ -12,7 +13,20 @@ class PresplashScreen extends StatefulWidget {
 }
 
 class _PresplashScreenState extends State<PresplashScreen> {
-  
+  @override
+  void initState() {
+    super.initState();
+    _navigatetohome();
+  }
+
+  _navigatetohome() async {
+    await Future.delayed(const Duration(milliseconds: 3000), () {});
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const DashboardScreen(title: "DashboardScreen")));
+  }
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

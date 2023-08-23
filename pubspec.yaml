@@ -72,8 +72,11 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/songs/arijitSingh/images/
+    - assets/songs/arijitSingh/songs/
     - assets/songs/iqlipseNova/songs/
     - assets/songs/iqlipseNova/images/
+    - assets/songs/trs/images/
+    - assets/songs/imagineDragons/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import 'package:spotify/musicPlayer.dart';
 import 'package:spotify/widgets/dashboardScreenWidgets/artistAndPodcastersColumn.dart';
 import 'package:spotify/widgets/dashboardScreenWidgets/recentPlaylistContainer.dart';
 import 'package:spotify/widgets/dashboardScreenWidgets/recentlyPlayed.dart';
@@ -186,7 +185,7 @@ class _homeScreenState extends State<homeScreen> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: Image.asset("assets/images/trs.jpg"),
+                    child: Image.asset("assets/songs/arijitSingh/images/tamasha.jpg"),
                   ),
                   const SizedBox(width: 10),
                   Column(
@@ -225,8 +224,8 @@ class _homeScreenState extends State<homeScreen> {
                           const Icon(Icons.devices_sharp, color: Colors.grey)),
                   IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.favorite_border_sharp,
-                          color: Colors.white)),
+                      icon: Icon(Icons.favorite_outlined,
+                          color: Colors.greenAccent[400])),
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.play_arrow_rounded,

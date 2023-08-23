@@ -60,7 +60,7 @@ class _artistsScreenState extends State<artistsScreen> {
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 colors: [
-                              Colors.pink.shade400,
+                              Colors.pinkAccent.shade100,
                               Palette.secondaryColor
                             ],
                                 begin: Alignment.topCenter,

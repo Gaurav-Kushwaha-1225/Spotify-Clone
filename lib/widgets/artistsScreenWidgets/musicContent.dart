@@ -31,7 +31,8 @@ class _musicContentState extends State<musicContent> {
                               name: widget.name,
                               image: Songs.songDetails[widget.name]![index]
                                   ['image']!,
-                                  song: Songs.songDetails[widget.name]![index]['name']!)));
+                                  song: Songs.songDetails[widget.name]![index]['name']!,
+                                  songName: Songs.songDetails[widget.name]![index]['song']!)));
                 },
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,

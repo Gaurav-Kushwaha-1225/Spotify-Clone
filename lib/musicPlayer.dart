@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names
+// ignore_for_file: camel_case_types, file_names, non_constant_identifier_names
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,13 @@ class musicPlayer extends StatefulWidget {
   final String name;
   final String image;
   final String song;
-  const musicPlayer({Key? key, required this.name, required this.image, required this.song})
+  final String songName;
+  const musicPlayer(
+      {Key? key,
+      required this.name,
+      required this.image,
+      required this.song,
+      required this.songName})
       : super(key: key);
 
   @override
@@ -16,6 +22,15 @@ class musicPlayer extends StatefulWidget {
 }
 
 class _musicPlayerState extends State<musicPlayer> {
+  Icon repeat = const Icon(Icons.repeat, color: Colors.white, size: 40);
+  bool repeat_song = false;
+  Icon shuffle = const Icon(
+    Icons.shuffle_sharp,
+    color: Colors.white,
+    size: 40,
+  );
+  bool shuffle_song = false;
+
   double currentPlayTime = 0;
 
   bool isPlaying = false;
@@ -39,7 +54,7 @@ class _musicPlayerState extends State<musicPlayer> {
 
   Future initPlayer() async {
     player = AudioPlayer();
-    path = AssetSource("songs/iqlipseNova/songs/meraSafar.mp3");
+    path = AssetSource(widget.songName);
 
     player.onDurationChanged.listen((Duration d) {
       setState(() => _duration = d);
@@ -90,7 +105,6 @@ class _musicPlayerState extends State<musicPlayer> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
                           Navigator.pop(context);
                         },
                         icon: const Icon(
@@ -144,7 +158,7 @@ class _musicPlayerState extends State<musicPlayer> {
                     scrollAxis: Axis.horizontal,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     blankSpace: 300,
-                    velocity: 40.0,
+                    velocity: 30.0,
                     startPadding: 5.0,
                     pauseAfterRound: const Duration(seconds: 2),
                     startAfter: const Duration(seconds: 2),
@@ -208,7 +222,7 @@ class _musicPlayerState extends State<musicPlayer> {
                             fontWeight: FontWeight.w600,
                             fontSize: 15)),
                     Text(
-                        "${(_position.inMinutes % 60).toString().padLeft(2, '0')}:${(_position.inSeconds % 60).toString().padLeft(2, '0')}",
+                        "${(_duration.inMinutes % 60).toString().padLeft(2, '0')}:${(_duration.inSeconds % 60).toString().padLeft(2, '0')}",
                         style: const TextStyle(
                             color: Colors.white,
                             fontFamily: "SpotifyCircularBook",
@@ -223,12 +237,18 @@ class _musicPlayerState extends State<musicPlayer> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.shuffle_sharp,
-                          color: Colors.white,
-                          size: 40,
-                        )),
+                        onPressed: () {
+                          if (shuffle_song) {
+                            shuffle = const Icon(Icons.shuffle_sharp,
+                                color: Colors.white, size: 40);
+                            shuffle_song = false;
+                          } else {
+                            shuffle = Icon(Icons.shuffle_on_sharp,
+                                color: Colors.greenAccent.shade400, size: 40);
+                            shuffle_song = true;
+                          }
+                        },
+                        icon: shuffle),
                     IconButton(
                         onPressed: () {},
                         icon: const Icon(
@@ -256,12 +276,20 @@ class _musicPlayerState extends State<musicPlayer> {
                           size: 40,
                         )),
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.repeat_sharp,
-                          color: Colors.white,
-                          size: 40,
-                        ))
+                        onPressed: () {
+                          setState(() {
+                            if (repeat_song) {
+                              repeat = const Icon(Icons.repeat,
+                                  color: Colors.white, size: 40);
+                              repeat_song = false;
+                            } else {
+                              repeat = Icon(Icons.repeat_one_sharp,
+                                  color: Colors.greenAccent.shade400, size: 40);
+                              repeat_song = true;
+                            }
+                          });
+                        },
+                        icon: repeat)
                   ],
                 ),
               ),
