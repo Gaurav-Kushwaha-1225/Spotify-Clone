@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.spotify">
    <application
-        android:label="spotify"
+        android:label="Spotify"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

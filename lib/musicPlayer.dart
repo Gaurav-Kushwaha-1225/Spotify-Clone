@@ -140,7 +140,7 @@ class _musicPlayerState extends State<musicPlayer> {
               ),
               Padding(
                   padding: const EdgeInsets.only(
-                      top: 40, left: 35, right: 35, bottom: 35),
+                      top: 30, left: 35, right: 35, bottom: 35),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image.asset(widget.image))),
