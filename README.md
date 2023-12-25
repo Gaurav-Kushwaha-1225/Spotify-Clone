@@ -72,9 +72,9 @@ Music Player Page        |  Search Screen Page       |   Internet Connection Che
 
 ## Connect with me
 <p align="left">
-<a href="https://twitter.com/GauravKush1225" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="thekaailash" height="30" width="40" /></a>
-<a href="https://www.linkedin.com/in/gaurav-kushwaha-330a39251/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="thekaailashsharma" height="30" width="40" /></a>
+<a href="https://twitter.com/GauravKush1225" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="GauraKushwaha1225" height="30" width="40" /></a>
+<a href="https://www.linkedin.com/in/gaurav-kushwaha-330a39251/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="gauravkushwaha" height="30" width="40" /></a>
 </p><p align="left">
-<a href="https://www.instagram.com/kush.gaurav12/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="thekaailashsharma" height="30" width="40" /></a>
+<a href="https://www.instagram.com/kush.gaurav12/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="kush.gaurav1225" height="30" width="40" /></a>
 <a href="https://www.youtube.com/@gauravkushwaha7207" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="Gaurav Kushwaha" height="30" width="40" /></a>
 </p>
