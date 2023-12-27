@@ -1,6 +1,8 @@
 # Spotify Clone in Flutter 
 
 A working Spotify clone built in Flutter using Firebase.
+> [!TIP]
+> **Below href is a YouTube video on Short Overview of the Features and Funtionality of Spotify Clone. &darr; &darr;**
 
 <a href="https://youtu.be/jYsSAx37N_I?si=FaOCvqkq0AxEaEjH"> 
   <img width="100%" alt="Spotify Clone Video" src="https://github.com/Gaurav-Kushwaha-1225/Spotify-Clone/assets/117214772/764dc8e5-8608-4755-869f-e19def5db85b">
