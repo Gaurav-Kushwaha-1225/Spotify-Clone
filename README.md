@@ -3,10 +3,18 @@
 A working Spotify clone built in Flutter using Firebase.
 
 <a href="https://youtu.be/jYsSAx37N_I?si=FaOCvqkq0AxEaEjH"> 
-  <img width="100%" alt="Spotify Banner" src="https://github.com/Gaurav-Kushwaha-1225/Spotify-Clone/assets/117214772/764dc8e5-8608-4755-869f-e19def5db85b">
+  <img width="100%" alt="Spotify Clone Video" src="https://github.com/Gaurav-Kushwaha-1225/Spotify-Clone/assets/117214772/764dc8e5-8608-4755-869f-e19def5db85b">
 </a>
 
 ![Dart CI](https://github.com/TheAlphamerc/flutter_twitter_clone/workflows/Dart%20CI/badge.svg)
+
+## Songs and Artists available on app
+ * Arjit Singh
+    * Agar Tum Saath Ho
+  * Iqlipse Nova
+    * Mera Safar
+    * Aarzoo
+  * Imagine Dragons
 
 ## Dependencies
 <details>
